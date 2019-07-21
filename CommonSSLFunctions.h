@@ -38,5 +38,16 @@ namespace OpenSSLCommon
     {
         SSL_CTX_free(pContext);
     }
+
+    /**
+     * Create client socket
+     *
+     * @param pIpAddress    string, which represents IP address
+     * @param port          target port
+     * @param sd            socket descriptor
+     *
+     * @return              0 is operation was success, -1 otherwise
+     */
+    int CreateClientSocket(const char* pIpAddress, uint16_t port, int32_t& sd);
 }
 #endif //SAFETYCOMMON_COMMONSSLFUNCTIONS_H

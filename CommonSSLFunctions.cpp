@@ -3,12 +3,17 @@
 #include <openssl/bio.h>
 #include <openssl/err.h>
 #include <mutex>
+#include <netinet/in.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <memory.h>
 
 
 namespace OpenSSLCommon
 {
     /**
-     * METHOD NAME OpenSSLCommon::OpenSSLInitializing
+     * METHOD NAME: OpenSSLCommon::OpenSSLInitializing
      */
     void OpenSSLInitializing()
     {
@@ -27,7 +32,7 @@ namespace OpenSSLCommon
     }
 
     /**
-     * METHOD NAME OpenSSLCommon::CreateOpenSSLContext
+     * METHOD NAME: OpenSSLCommon::CreateOpenSSLContext
      */
     SSL_CTX* CreateOpenSSLContext(bool isServer)
     {
@@ -39,5 +44,35 @@ namespace OpenSSLCommon
         }
 
         return result;
+    }
+
+    /**
+     * METHOD NAME: OpenSSLCommon::CreateClientSocket
+     */
+    int CreateClientSocket(const char* pIpAddress, uint16_t port, int32_t& sd)
+    {
+        sockaddr_in addr{};
+
+        sd = socket(PF_INET, SOCK_STREAM, 0);
+        if (sd != -1)
+        {
+            return -1;
+        }
+
+        bzero(&addr, sizeof(addr));
+
+        addr.sin_family = AF_INET;
+        addr.sin_port = ntohs(port);
+        if (inet_aton(pIpAddress, &addr.sin_addr) == 0)
+        {
+            return -1;
+        }
+
+        if (connect(sd, (sockaddr*)(&addr), sizeof(addr)) != 0)
+        {
+            return -1;
+        }
+
+        return 0;
     }
 }
