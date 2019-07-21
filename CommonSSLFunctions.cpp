@@ -54,7 +54,7 @@ namespace OpenSSLCommon
         sockaddr_in addr{};
 
         sd = socket(PF_INET, SOCK_STREAM, 0);
-        if (sd != -1)
+        if (sd == -1)
         {
             return -1;
         }
@@ -69,6 +69,37 @@ namespace OpenSSLCommon
         }
 
         if (connect(sd, (sockaddr*)(&addr), sizeof(addr)) != 0)
+        {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * METHOD NAME: OpenSSLCommon::CreateServerSocket
+     */
+    int CreateServerSocket(uint16_t port, int32_t& sd, int n)
+    {
+        sockaddr_in addr{};
+
+        sd = socket(PF_INET, SOCK_STREAM, 0);
+        if (sd == -1)
+        {
+            return -1;
+        }
+
+        bzero(&addr, sizeof(addr));
+        addr.sin_family = AF_INET;
+        addr.sin_port =htons(port);
+        addr.sin_addr.s_addr = INADDR_ANY;
+
+        if (bind(sd, (sockaddr*)(&addr), sizeof(addr)) != 0)
+        {
+            return -1;
+        }
+
+        if (listen(sd, n) != 0)
         {
             return -1;
         }
