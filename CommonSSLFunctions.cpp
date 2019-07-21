@@ -25,4 +25,19 @@ namespace OpenSSLCommon
             SSL_library_init();
         }
     }
+
+    /**
+     * METHOD NAME OpenSSLCommon::CreateOpenSSLContext
+     */
+    SSL_CTX* CreateOpenSSLContext(bool isServer)
+    {
+        SSL_CTX* result = isServer ? SSL_CTX_new(SSLv23_server_method()) :
+                                     SSL_CTX_new(SSLv23_client_method());
+        if (result == nullptr)      // error was occurred
+        {
+            ERR_print_errors_fp(stderr);
+        }
+
+        return result;
+    }
 }

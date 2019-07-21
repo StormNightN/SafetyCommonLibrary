@@ -22,14 +22,12 @@ namespace OpenSSLCommon
     /**
      * Create SSL context
      *
-     * @return  SSL_CTX is not equal null, if initialization was
-     *          success, SSL context otherwise
+     * @param isServer  true, if server context should be created, false otherwise
+     *
+     * @return          SSL_CTX is not equal null, if initialization was
+     *                  success, SSL context otherwise
      */
-    inline SSL_CTX* CreateOpenSSLContext(bool isServer)
-    {
-        return isServer ? SSL_CTX_new(SSLv23_server_method()) :
-            SSL_CTX_new(SSLv23_client_method());
-    }
+    SSL_CTX* CreateOpenSSLContext(bool isServer);
 
     /**
      * Free OpenSSL context
