@@ -34,10 +34,7 @@ namespace OpenSSLCommon
      *
      * @param pContext  free OpenSSL context
      */
-    inline void FreeOpenSSLContext(SSL_CTX* pContext)
-    {
-        SSL_CTX_free(pContext);
-    }
+    void FreeOpenSSLContext(SSL_CTX* pContext);
 
     /**
      * Create client socket
@@ -49,5 +46,16 @@ namespace OpenSSLCommon
      * @return              0 is operation was success, -1 otherwise
      */
     int CreateClientSocket(const char* pIpAddress, uint16_t port, int32_t& sd);
+
+    /**
+     * Create server socket
+     *
+     * @param port          port, on which server will be listen
+     * @param sd            socket descriptor
+     * @param n             count parallel accepted connection
+     *
+     * @return              0 is operation was success, -1 otherwise
+     */
+    int CreateServerSocket(uint16_t port, int32_t& sd, int n);
 }
 #endif //SAFETYCOMMON_COMMONSSLFUNCTIONS_H
