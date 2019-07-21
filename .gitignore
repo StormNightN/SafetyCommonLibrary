@@ -1,2 +1,9 @@
 .idea
 cmake-*
+CMakeCache.txt
+*.a
+*.lib
+CMakeFiles
+Makefile
+*.cbp
+cmake_install.cmake
