@@ -24,8 +24,10 @@ namespace OpenSSLCommon
      *
      * @param isServer  true, if server context should be created, false otherwise
      *
-     * @return          SSL_CTX is not equal null, if initialization was
-     *                  success, SSL context otherwise
+     * @return          SSL context
+     * @retval          nullptr unsuccessful initialization
+     * @retval          not nullptr successful initialization
+     *
      */
     SSL_CTX* CreateOpenSSLContext(bool isServer);
 
@@ -33,6 +35,7 @@ namespace OpenSSLCommon
      * Free OpenSSL context
      *
      * @param pContext  free OpenSSL context
+     *
      */
     void FreeOpenSSLContext(SSL_CTX* pContext);
 
@@ -43,7 +46,10 @@ namespace OpenSSLCommon
      * @param port          target port
      * @param sd            socket descriptor
      *
-     * @return              0 is operation was success, -1 otherwise
+     * @return              operation result
+     * @retval              0  operation success
+     * @retval              -1 unsuccessful operation
+     *
      */
     int CreateClientSocket(const char* pIpAddress, uint16_t port, int32_t& sd);
 
@@ -54,7 +60,10 @@ namespace OpenSSLCommon
      * @param sd            socket descriptor
      * @param n             count parallel accepted connection
      *
-     * @return              0 is operation was success, -1 otherwise
+     * @return              operation result
+     * @retval              0  operation success
+     * @retval              -1 unsuccessful operation
+     *
      */
     int CreateServerSocket(uint16_t port, int32_t& sd, int n);
 }
