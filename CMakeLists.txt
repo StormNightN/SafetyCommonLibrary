@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package(OpenSSL REQUIRED)
 
-add_library(SafetyCommon SHARED include/CommonSSLFunctions.h CommonSSLFunctions.cpp)
+add_library(SafetyCommon SHARED include/CommonSSL.h CommonSSL.cpp include/Networking.h Networking.cpp)
 target_include_directories(SafetyCommon INTERFACE include)
 target_link_libraries(${PROJECT_NAME} ssl crypto)
