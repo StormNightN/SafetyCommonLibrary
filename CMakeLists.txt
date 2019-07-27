@@ -11,7 +11,7 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -Wpedantic -pedantic")
 endif()
 
-set(SOURCES CommonSSLFunctions.cpp)
+set(SOURCES Networking.cpp CommonSSL.cpp)
 add_library(SafetyCommon SHARED ${SOURCES})
 
 target_include_directories(SafetyCommon INTERFACE include)
